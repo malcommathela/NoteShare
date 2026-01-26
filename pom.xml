@@ -14,6 +14,7 @@
 		<relativePath/>
 	</parent>
 
+
 	<!-- Project Info -->
 	<groupId>com.example</groupId>
 	<artifactId>spring-security-jwt</artifactId>
