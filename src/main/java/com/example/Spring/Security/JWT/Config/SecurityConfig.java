@@ -33,11 +33,19 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(authorize ->authorize
-                        .requestMatchers("/",
+                        // backend API
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+
+                        // frontend (React / Vite build)
+                        .requestMatchers(
+                                "/",
                                 "/index.html",
                                 "/assets/**",
                                 "/favicon.ico",
-                                "/auth/**").permitAll()
+                                "/login",
+                                "/register"
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
