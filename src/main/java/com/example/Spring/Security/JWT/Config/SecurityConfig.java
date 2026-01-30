@@ -2,6 +2,7 @@ package com.example.Spring.Security.JWT.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -35,18 +36,21 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize ->authorize
                         // backend API
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-
-                        // frontend (React / Vite build)
                         .requestMatchers(
-                                "/",
                                 "/index.html",
+                                "/static/**",
                                 "/assets/**",
-                                "/favicon.ico",
-                                "/login",
-                                "/verify",
-                                "/signup"
+                                "/favicon.ico"
                         ).permitAll()
+                        // SPA frontend routes
+                        .requestMatchers("/", "/login", "/signup", "/verify").permitAll()
+                        // Swagger / docs
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**"
+                        ).permitAll()
+                        // Public auth endpoints (adjust to your actual login POST)
+                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
