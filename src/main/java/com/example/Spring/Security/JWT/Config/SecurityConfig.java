@@ -50,8 +50,6 @@ public class SecurityConfig {
                                 "/verify",
                                 "/signup"
                         ).permitAll()
-                        // Allow /error (important for 404/other errors)
-                        .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
