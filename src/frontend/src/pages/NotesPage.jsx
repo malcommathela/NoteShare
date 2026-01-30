@@ -11,9 +11,27 @@ const NotesPage = () => {
     const navigate = useNavigate();
 
     const loadNotes = async () => {
-        const res = await notesApi.getMyNotes();
-        setNotes(res.data);
+        try {
+            const res = await notesApi.getMyNotes();
+
+            if (Array.isArray(res.data)) {
+                setNotes(res.data);
+            } else if (Array.isArray(res.data?.notes)) {
+                setNotes(res.data.notes);
+            } else {
+                setNotes([]);
+            }
+
+        } catch (err) {
+            if (err?.response?.status === 401 || err?.response?.status === 403) {
+                logout();
+                return;
+            }
+            console.error(err);
+            setNotes([]);
+        }
     };
+
 
     useEffect(() => {
         loadNotes();
@@ -43,7 +61,7 @@ const NotesPage = () => {
                 </div>
 
                 <div className="notes-list">
-                    {notes.map((n) => (
+                    {Array.isArray(notes) && notes.map((n) => (
                         <div key={n.id} className="note-item">
                             <h3>{n.title}</h3>
                             <p>{n.content}</p>
