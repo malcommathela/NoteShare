@@ -10,7 +10,7 @@ public class FrontendController {
     @GetMapping(value = {
             "/",
             "/login",
-            "/register",
+            "/verify",
             "/{path:^(?!auth|api|swagger-ui|v3).*}"
     })
     public String forward() {
