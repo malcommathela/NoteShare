@@ -36,6 +36,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize ->authorize
                         // backend API
                         .requestMatchers("/auth/**").permitAll()
+                        // Public auth endpoints (adjust to your actual login POST)
+                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
 
                         // frontend (React / Vite build)
@@ -48,8 +50,6 @@ public class SecurityConfig {
                                 "/verify",
                                 "/signup"
                         ).permitAll()
-                        // Public auth endpoints (adjust to your actual login POST)
-                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
