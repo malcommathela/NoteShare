@@ -26,10 +26,8 @@ const LoginPage = () => {
             login(res.data.token);
             navigate("/notes");
         } catch (err) {
-            setMessage(
-                err?.response?.data ||
-                "Login failed. Please check your credentials."
-            );
+            console.log(err.response);
+            setMessage(JSON.stringify(err.response?.data));
         }
     };
 
