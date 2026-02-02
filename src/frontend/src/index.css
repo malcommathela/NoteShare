@@ -24,8 +24,10 @@ body {
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(15, 23, 42, 0.08);
   width: 100%;
-  max-width: 420px;
+  min-width: 500px;
 }
+
+
 
 .card-wide {
   max-width: 960px;
