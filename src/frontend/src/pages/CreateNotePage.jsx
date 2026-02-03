@@ -21,9 +21,6 @@ const CreateNotePage = () => {
             <div className="card card-wide">
                 <div className="header-row">
                     <h1>New Note</h1>
-                    <button className="secondary" onClick={logout}>
-                        Logout
-                    </button>
                 </div>
 
                 <form onSubmit={handleCreate}>

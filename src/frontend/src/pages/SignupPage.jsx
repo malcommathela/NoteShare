@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authApi } from "../api/authApi";
+import "../css/signup.css"
 
 const SignupPage = () => {
     const [username, setUsername] = useState("");
@@ -26,9 +27,9 @@ const SignupPage = () => {
     };
 
     return (
-        <div className="app-container">
-            <div className="card">
 
+        <div className="login-container">
+            <div className="login-card">
                 <div className="login-header">
                     <div className="logo">
                         <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -42,23 +43,42 @@ const SignupPage = () => {
 
                 {message && <p className="success">{message}</p>}
                 <form onSubmit={handleSubmit}>
-                    <input
-                        placeholder="Username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    /><br/>
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    /><br/>
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    /><br/>
+                    <div className="input-group">
+                        <input
+                            type="username"
+                            placeholder="Username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                    </div>
+                    <div className="input-group">
+                        <input
+                            type="email"
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <span className="input-border"></span>
+                        <span className="error-message" id="emailError"></span>
+                    </div>
+                    <div className="input-group">
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <button type="button" className="password-toggle" id="passwordToggle"
+                                aria-label="Toggle password visibility">
+                            <svg className="eye-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path
+                                    d="M8 3C4.5 3 1.6 5.6 1 8c.6 2.4 3.5 5 7 5s6.4-2.6 7-5c-.6-2.4-3.5-5-7-5zm0 8.5A3.5 3.5 0 118 4.5a3.5 3.5 0 010 7zm0-5.5a2 2 0 100 4 2 2 0 000-4z"
+                                    fill="currentColor"/>
+                            </svg>
+                        </button>
+                        <span className="input-border"></span>
+                        <span className="error-message" id="passwordError"></span>
+                    </div>
                     <button type="submit" className="submit-btn">Signup</button>
                 </form>
 
@@ -100,8 +120,9 @@ const SignupPage = () => {
                         Sign in
                     </button>
                 </p>
-
             </div>
+
+
         </div>
     );
 };

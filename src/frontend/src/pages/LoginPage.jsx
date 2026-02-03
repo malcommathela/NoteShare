@@ -37,8 +37,8 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="app-container">
-            <div className="card">
+        <div className="login-container">
+            <div className="login-card">
                 <div className="login-header">
                     <div className="logo">
                         <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -49,24 +49,41 @@ const LoginPage = () => {
                     <h1>Sign in to Dashboard</h1>
                     <p>Welcome back! Please sign in to continue</p>
                 </div>
-
-                {message && <p className="error">{message}</p>}
-
+                {message && <p className="success">{message}</p>}
                 <form onSubmit={handleSubmit}>
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        value={email}
-                        autoComplete="email"
-                        onChange={(e) => setEmail(e.target.value)}
-                    /><br/>
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        autoComplete="current-password"
-                        onChange={(e) => setPassword(e.target.value)}
-                    /><br/>
+                    <div className="input-group">
+                        <input
+                            type="email"
+                            placeholder="Email"
+                            value={email}
+                            autoComplete="email"
+                            onChange={(e) => setEmail(e.target.value)}
+                        /><br/>
+                        <span className="input-border"></span>
+                        <span className="error-message" id="emailError"></span>
+                    </div>
+
+                    <div className="input-group">
+
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            value={password}
+                            autoComplete="current-password"
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <button type="button" className="password-toggle" id="passwordToggle"
+                                aria-label="Toggle password visibility">
+                            <svg className="eye-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path
+                                    d="M8 3C4.5 3 1.6 5.6 1 8c.6 2.4 3.5 5 7 5s6.4-2.6 7-5c-.6-2.4-3.5-5-7-5zm0 8.5A3.5 3.5 0 118 4.5a3.5 3.5 0 010 7zm0-5.5a2 2 0 100 4 2 2 0 000-4z"
+                                    fill="currentColor"/>
+                            </svg>
+                        </button>
+                        <span className="input-border"></span>
+                        <span className="error-message" id="passwordError"></span>
+                    </div>
+
                     <div className="form-options">
                         <label className="checkbox-container">
                             <input type="checkbox" id="remember" name="remember"/>
@@ -80,8 +97,22 @@ const LoginPage = () => {
                         </label>
                         <a href="#" className="forgot-link">Forgot password?</a>
                     </div>
-                    <button type="submit" className="submit-btn" >Login</button>
+
+                    <button type="submit" className="submit-btn">
+                        <span className="btn-text">Sign in</span>
+                        <div className="btn-loader">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                <circle cx="9" cy="9" r="7" stroke="currentColor" strokeWidth="2" opacity="0.25"/>
+                                <path d="M16 9a7 7 0 01-7 7" stroke="currentColor" strokeWidth="2"
+                                      strokeLinecap="round">
+                                    <animateTransform attributeName="transform" type="rotate" dur="1s"
+                                                      values="0 9 9;360 9 9" repeatCount="indefinite"/>
+                                </path>
+                            </svg>
+                        </div>
+                    </button>
                 </form>
+
                 <div className="divider">
                     <span>or continue with</span>
                 </div>
@@ -110,18 +141,25 @@ const LoginPage = () => {
                     </button>
                 </div>
 
-                <p style={{marginTop: "12px"}}>
-                    Don&apos;t have an account?{" "}
-                    <button
-                        type="button"
-                        className="link-button"
-                        onClick={goToSignup}
-                    >
-                        Sign up
-                    </button>
-                </p>
+                <div className="signup-link">
+                    <span>Don't have an account? </span>
+                    <a href="#" onClick={goToSignup}>Create Account</a>
+                </div>
+
+                <div className="success-message" id="successMessage">
+                    <div className="success-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="12" fill="#635BFF"/>
+                            <path d="M8 12l3 3 5-5" stroke="white" strokeWidth="2" strokeLinecap="round"
+                                  strokeLinejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Welcome back!</h3>
+                    <p>Redirecting to your dashboard...</p>
+                </div>
             </div>
         </div>
+
     );
 };
 
