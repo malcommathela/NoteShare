@@ -1,9 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-    // baseURL: "http://localhost:8080" || "https://noteshare-production-b136.up.railway.app",
     baseURL: "https://noteshare-production-b136.up.railway.app",
-
 
 
 });
