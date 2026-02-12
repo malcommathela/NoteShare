@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const API = "https://noteshare-production-b136.up.railway.app";
+const API = import.meta.env.VITE_API_URL;
 
 export default function SharedNotePage() {
 
