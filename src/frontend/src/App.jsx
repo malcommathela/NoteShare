@@ -4,6 +4,9 @@ import LoginPage from "./pages/LoginPage";
 import NotesPage from "./pages/NotesPage";
 import NoteFormPage from "./pages/NoteFormPage";
 import SignupPage from "./pages/SignupPage.jsx";
+import SharedNotePage from "./pages/SharedNotePage.jsx";
+
+
 
 function App() {
     return (
@@ -13,6 +16,7 @@ function App() {
             <Route path="/notes" element={<NotesPage />} />
             <Route path="/notes/new" element={<NoteFormPage mode="create" />} />
             <Route path="/notes/:id/edit" element={<NoteFormPage mode="edit" />} />
+            <Route path="/share/:token" element={<SharedNotePage />} />
             <Route path="*" element={<LoginPage />} />
         </Routes>
     );

@@ -70,6 +70,16 @@ textarea {
     min-height: 120px;
 }
 
+input[type="file"] {
+    all: unset;
+    display: block;
+    width: 100%;
+    margin-bottom: 12px;
+    color: #333;
+}
+
+
+
 button {
     display: inline-flex;
     align-items: center;
@@ -149,3 +159,100 @@ button.secondary:hover {
     align-items: center;
     margin-bottom: 16px;
 }
+
+
+
+.attachment-file {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    margin: 6px 0;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    text-decoration: none;
+    color: #111827;
+    font-size: 14px;
+}
+
+.attachment-file:hover {
+    background: #f3f4f6;
+}
+
+.attachment-icon {
+    font-size: 20px;
+    line-height: 1;
+}
+
+.attachment-text {
+    font-weight: 500;
+}
+
+.share-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.share-modal {
+    background: #fff;
+    padding: 16px;
+    border-radius: 10px;
+    width: 380px;
+    max-width: 90%;
+}
+
+.share-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.share-body {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.share-body input {
+    flex: 1;
+    padding: 8px;
+}
+
+.close-btn {
+    background: red;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.note-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+/* make all action buttons same height */
+.note-actions button {
+    height: 34px;
+    padding: 0 14px;
+    border-radius: 8px;   /* smaller = cleaner */
+    white-space: nowrap;
+}
+
+/* optional: delete styling */
+.note-actions .danger {
+    background: #ef4444;
+}
+
+.note-actions .danger:hover {
+    background: #dc2626;
+}
+
+
+

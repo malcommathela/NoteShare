@@ -33,14 +33,21 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .authorizeHttpRequests(authorize ->authorize
-                        // backend API
+                .authorizeHttpRequests(authorize -> authorize
+
+                        // Auth endpoints
                         .requestMatchers("/auth/**").permitAll()
-                        // Public auth endpoints (adjust to your actual login POST)
-                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+
+                        // Public shared note endpoint
+                        .requestMatchers(HttpMethod.GET, "/notes/shared/**").permitAll()
+
+                        // All notes APIs require login
+                        .requestMatchers("/notes/**").authenticated()
+
+                        // Swagger
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
 
-                        // frontend (React / Vite build)
+                        // Frontend static files (if you really serve them from Spring)
                         .requestMatchers(
                                 "/",
                                 "/index.html",
@@ -50,8 +57,10 @@ public class SecurityConfig {
                                 "/verify",
                                 "/signup"
                         ).permitAll()
+
                         .anyRequest().authenticated()
                 )
+
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)

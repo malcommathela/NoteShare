@@ -9,6 +9,9 @@ const NotesList = () => {
     const [notes, setNotes] = useState([]);
     const { logout } = useAuth();
     const navigate = useNavigate();
+    const [shareLink, setShareLink] = useState("");
+    const [showShareModal, setShowShareModal] = useState(false);
+
 
     const loadNotes = async () => {
         try {
@@ -31,6 +34,21 @@ const NotesList = () => {
             setNotes([]);
         }
     };
+
+    const getFileTypeIcon = (url) => {
+        if (!url) return "📎";
+
+        const ext = url.split(".").pop().toLowerCase();
+
+        if (["jpg", "jpeg", "png", "webp", "gif"].includes(ext)) return "🖼️";
+        if (ext === "pdf") return "📄";
+        if (["doc", "docx"].includes(ext)) return "📝";
+        if (["xls", "xlsx"].includes(ext)) return "📊";
+        if (["zip", "rar", "7z"].includes(ext)) return "🗜️";
+
+        return "📎";
+    };
+
 
 
     useEffect(() => {
@@ -67,25 +85,90 @@ const NotesList = () => {
                                 <div key={n.id} className="note-item">
                                     <h3>{n.title}</h3>
                                     <p>{n.content}</p>
-                                    <button
-                                        className="secondary"
-                                        onClick={() =>
-                                            navigate(`/notes/${n.id}/edit`, { state: { note: n } })
-                                        }
-                                    >
-                                        Edit
-                                    </button>
-                                    <button
-                                        className="danger"
-                                        style={{ marginLeft: "8px" }}
-                                        onClick={() => handleDelete(n.id)}
-                                    >
-                                        Delete
-                                    </button>
+                                    {n.attachmentUrl && (
+                                        <a
+                                            href={n.attachmentUrl}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="attachment-file"
+                                            title="Open attachment"
+                                        >
+                                        <span className="attachment-icon">
+                                                {getFileTypeIcon(n.attachmentUrl)}
+                                        </span>
+                                            {/*<span className="attachment-text">Attachment</span>*/}
+                                        </a>
+                                    )}<br/>
+                                    <div className="note-actions">
+                                        <button
+                                            className="secondary"
+                                            onClick={() =>
+                                                navigate(`/notes/${n.id}/edit`, { state: { note: n } })
+                                            }
+                                        >
+                                            Edit
+                                        </button>
+                                        <button
+                                            onClick={async () => {
+                                                const res = await notesApi.shareNote(n.id);
+
+                                                const token = res.data;   // IMPORTANT: backend returns plain string
+                                                const url = `${window.location.origin}/share/${token}`;
+
+                                                setShareLink(url);
+                                                setShowShareModal(true);
+                                            }}
+                                        >
+                                            Share
+                                        </button>
+
+
+
+                                        <button
+                                            className="danger"
+                                            style={{ marginLeft: "8px" }}
+                                            onClick={() => handleDelete(n.id)}
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+
                                 </div>
                             ))}
                     </div>
                 </div>
+                {showShareModal && (
+                    <div className="share-overlay">
+                        <div className="share-modal">
+                            <div className="share-header">
+                                <h3>Share</h3>
+                                <button
+                                    className="close-btn"
+                                    onClick={() => setShowShareModal(false)}
+                                >
+                                    ✕
+                                </button>
+                            </div>
+
+                            <div className="share-body">
+                                <input
+                                    type="text"
+                                    value={shareLink}
+                                    readOnly
+                                />
+
+                                <button
+                                    onClick={async () => {
+                                        await navigator.clipboard.writeText(shareLink);
+                                    }}
+                                >
+                                    Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
             </div>
         </>
     );

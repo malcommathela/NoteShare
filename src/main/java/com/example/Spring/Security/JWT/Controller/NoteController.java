@@ -51,6 +51,37 @@ public class NoteController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/share/{id}")
+    public ResponseEntity<String> shareNote(
+            @PathVariable Long id,
+            @AuthenticationPrincipal User user) {
+
+        return ResponseEntity.ok(
+                noteService.createShareToken(id, user)
+        );
+    }
+
+
+    @PostMapping("/unshare/{id}")
+    public ResponseEntity<Note> unshareNote(
+            @PathVariable Long id,
+            @AuthenticationPrincipal User user) {
+
+        return ResponseEntity.ok(noteService.disableSharing(id, user));
+    }
+
+    @GetMapping("/shared/{token}")
+    public ResponseEntity<Note> getSharedNote(@PathVariable String token) {
+
+        return ResponseEntity.ok(noteService.getSharedNote(token));
+    }
+
+
+
+
+
+
+
 
 
 

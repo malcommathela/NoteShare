@@ -26,6 +26,12 @@ public class Note {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private boolean isPublic;
+    @Column(name = "attachment_url")
+    private String attachmentUrl;
+    @Column(unique = true)
+    private String shareToken;
+
+
 
     public Note(User owner, String title, String content, LocalDateTime createdAt, LocalDateTime updatedAt, boolean isPublic) {
         this.owner = owner;
@@ -39,4 +45,16 @@ public class Note {
     public Note() {
 
     }
+
+    public String getShareToken() {
+        return shareToken;
+    }
+
+    public void setShareToken(String shareToken) {
+        this.shareToken = shareToken;
+    }
+
+
+
+
 }

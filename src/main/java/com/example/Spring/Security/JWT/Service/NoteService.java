@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
 
 
 @Service
@@ -28,6 +30,7 @@ public class NoteService {
         Note note = new Note();
         note.setTitle(createNoteRequest.getTitle());
         note.setContent(createNoteRequest.getContent());
+        note.setAttachmentUrl(createNoteRequest.getAttachmentUrl());
         note.setOwner(owner);
         note.setCreatedAt(LocalDateTime.now());
         note.setUpdatedAt(LocalDateTime.now());
@@ -53,10 +56,46 @@ public class NoteService {
         Note note = getMyNoteById(id, owner);
         note.setTitle(request.getTitle());
         note.setContent(request.getContent());
+        note.setAttachmentUrl(request.getAttachmentUrl());
         note.setUpdatedAt(LocalDateTime.now());
         return noteRepository.save(note);
 
     }
+
+
+    public Note disableSharing(Long noteId, User owner) {
+
+        Note note = getMyNoteById(noteId, owner);
+        note.setShareToken(null);
+
+        return noteRepository.save(note);
+    }
+
+    public Note getSharedNote(String token) {
+
+        return noteRepository.findByShareToken(token)
+                .orElseThrow(() -> new RuntimeException("Shared note not found"));
+    }
+
+    public String createShareToken(Long noteId, User owner) {
+
+        Note note = getMyNoteById(noteId, owner);
+
+        note.setPublic(true);
+
+        if (note.getShareToken() == null || note.getShareToken().isBlank()) {
+            note.setShareToken(UUID.randomUUID().toString());
+        }
+
+        noteRepository.save(note);
+
+        return note.getShareToken();
+    }
+
+
+
+
+
 
 
 

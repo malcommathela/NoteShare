@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface NoteRepository extends CrudRepository<Note, Long> {
     List<Note> findByOwner(User owner);
-
+    Optional<Note> findByShareToken(String shareToken);
     Optional<Note> findByIdAndOwner(Long id, User owner);
 
 }

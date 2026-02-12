@@ -1,12 +1,10 @@
 package com.example.Spring.Security.JWT.DT0;
 
-import lombok.Getter;
-import lombok.Setter;
+public class NoteResponse {
 
-@Getter
-@Setter
-public class UpdateNoteRequest {
+    private Long id;
     private String title;
     private String content;
     private String attachmentUrl;
 }
+
