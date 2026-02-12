@@ -38,6 +38,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         if (
                 path.startsWith("/notes/shared/") ||
+                        path.startsWith("/share/") ||
                         path.startsWith("/auth/") ||
                         path.equals("/") ||
                         path.equals("/index.html") ||

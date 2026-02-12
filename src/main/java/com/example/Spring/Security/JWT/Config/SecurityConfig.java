@@ -55,8 +55,11 @@ public class SecurityConfig {
                                 "/favicon.ico",
                                 "/login",
                                 "/verify",
-                                "/signup"
+                                "/signup",
+                                "/share/**",
+                                "/notes/shared/**"
                         ).permitAll()
+
 
                         .anyRequest().authenticated()
                 )
