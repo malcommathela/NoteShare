@@ -36,22 +36,23 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         String path = request.getServletPath();
 
-        // skip frontend & public endpoints
         if (
-                path.equals("/") ||
+                path.startsWith("/notes/shared/") ||
+                        path.startsWith("/auth/") ||
+                        path.equals("/") ||
                         path.equals("/index.html") ||
                         path.startsWith("/assets/") ||
                         path.equals("/favicon.ico") ||
                         path.equals("/login") ||
                         path.equals("/signup") ||
                         path.equals("/verify") ||
-                        path.startsWith("/auth/") ||
                         path.startsWith("/v3/api-docs") ||
                         path.startsWith("/swagger-ui")
         ) {
             filterChain.doFilter(request, response);
             return;
         }
+
 
         final String authorizationHeader = request.getHeader("Authorization");
 
