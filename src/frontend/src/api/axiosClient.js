@@ -1,9 +1,9 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-    // baseURL: "https://noteshare-production-b136.up.railway.app",
+    baseURL: "https://noteshare-production-b136.up.railway.app",
     // baseURL: "http://localhost:8080",
-    baseURL: "https://note-share-vert.vercel.app"
+    // baseURL: "https://note-share-vert.vercel.app"
 });
 
 axiosClient.interceptors.request.use((config) => {
