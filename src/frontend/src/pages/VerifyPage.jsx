@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authApi } from "../api/authApi";
+import "../css/login.css"
 
 const VerifyPage = () => {
     const [email, setEmail]     = useState("");

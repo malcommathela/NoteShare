@@ -52,7 +52,7 @@ public class SecurityConfig {
                                 "/",
                                 "/index.html",
                                 "/assets/**",
-                                "/favicon.ico",
+                                "/favicon.svg",
                                 "/login",
                                 "/verify",
                                 "/signup",

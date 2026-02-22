@@ -2,6 +2,7 @@
 import { Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import NotesPage from "./pages/NotesPage";
+import VerifyPage  from "./pages/VerifyPage.jsx";
 import NoteFormPage from "./pages/NoteFormPage";
 import SignupPage from "./pages/SignupPage.jsx";
 import SharedNotePage from "./pages/SharedNotePage.jsx";
@@ -14,6 +15,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/notes" element={<NotesPage />} />
+            <Route path="/verify" element={<VerifyPage />} />
             <Route path="/notes/new" element={<NoteFormPage mode="create" />} />
             <Route path="/notes/:id/edit" element={<NoteFormPage mode="edit" />} />
             <Route path="/share/:token" element={<SharedNotePage />} />

@@ -43,7 +43,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                         path.equals("/") ||
                         path.equals("/index.html") ||
                         path.startsWith("/assets/") ||
-                        path.equals("/favicon.ico") ||
+                        path.equals("/favicon.svg") ||
                         path.equals("/login") ||
                         path.equals("/signup") ||
                         path.equals("/verify") ||
